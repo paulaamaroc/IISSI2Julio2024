@@ -7,6 +7,8 @@ import loadProductCategoryModel from './ProductCategory.js'
 import loadRestaurantCategoryModel from './RestaurantCategory.js'
 import loadUserModel from './User.js'
 
+import loadPerformanceModel from './Performances.js'
+
 const sequelizeSession = new Sequelize(getEnvironmentConfig().database, getEnvironmentConfig().username, getEnvironmentConfig().password, getEnvironmentConfig())
 const Restaurant = loadRestaurantModel(sequelizeSession, Sequelize.DataTypes)
 const Order = loadOrderModel(sequelizeSession, Sequelize.DataTypes)
@@ -15,8 +17,9 @@ const ProductCategory = loadProductCategoryModel(sequelizeSession, Sequelize.Dat
 const RestaurantCategory = loadRestaurantCategoryModel(sequelizeSession, Sequelize.DataTypes)
 const User = loadUserModel(sequelizeSession, Sequelize.DataTypes)
 
+const Performance = loadPerformanceModel(sequelizeSession, Sequelize.DataTypes)
 
-const db = { Restaurant, Order, Product, ProductCategory, RestaurantCategory, User }
+const db = { Restaurant, Order, Product, ProductCategory, RestaurantCategory, User, Performance }
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
@@ -24,4 +27,4 @@ Object.keys(db).forEach(modelName => {
   }
 })
 
-export { Restaurant, Order, Product, ProductCategory, RestaurantCategory, User, sequelizeSession }
+export { Restaurant, Order, Product, ProductCategory, RestaurantCategory, User, Performance, sequelizeSession }

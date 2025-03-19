@@ -1,6 +1,5 @@
 // This is a new file for solution!
 import { Model } from 'sequelize'
-import { Restaurant } from './models'
 const loadModel = (sequelize, DataTypes) => {
   class Performance extends Model {
     /**
@@ -9,18 +8,10 @@ const loadModel = (sequelize, DataTypes) => {
 * The `models/index` file will call this method automatically.
 */
     static associate (models) {
-      // define association here
-      Restaurant.belongsTo(models.RestaurantCategory, { foreignKey: 'restaurantCategoryId', as: 'restaurantCategory' })
-      Restaurant.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
-      Restaurant.hasMany(models.Product, { foreignKey: 'restaurantId', as: 'products' })
-      Restaurant.hasMany(models.Order, { foreignKey: 'restaurantId', as: 'orders' })
-
-      // SOLUCION-> 1 retsauarnte tiene varias actuaciones
-      Restaurant.hasMany(models.Performance, { foreignKey: 'restaurantId', as: 'performances' })
-
       // SOLUCION
       Performance.belongsTo(models.Restaurant, {
-        foreignKey: 'restaurantId',
+        foreignKey:
+'restaurantId',
         as: 'restaurant',
         onDelete: 'cascade'
       })
