@@ -33,6 +33,17 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
           </View>
         </ImageBackground>
 
+        <View style={styles.containerPerformance}>
+          <FlatList
+          ListHeaderComponent={renderHeaderPerformances}
+          ListEmptyComponent={renderPerformanceEmptyList}
+          style={styles.containerPerformance}
+          data={restaurant?.performances}
+          renderItem={renderPerformance}
+          keyExtractor={item => item.id.toString()}
+          ></FlatList>
+        </View>
+
         <Pressable
           onPress={() => navigation.navigate('CreateProductScreen', { id: restaurant.id })
           }
@@ -52,6 +63,42 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
           </View>
         </Pressable>
       </View>
+    )
+  }
+
+  const renderHeaderPerformances = () => {
+    return (
+      <>
+      {restaurant?.performances?.length !== 0 &&
+        <View>
+          <TextSemiBold style={styles.textTitle}>
+          Próximas actuaciones:
+          </TextSemiBold>
+        </View>
+      }
+      </>
+    )
+  }
+
+  const renderPerformance = ({ item }) => {
+    const appointment = new Date(item.appointment)
+    const semana = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
+    return (
+      <View>
+        <TextRegular textStyle={styles.description}>
+          {item.group} el próximo
+          {semana[appointment.getDay()]},
+          {appointment.toLocaleDateString()}
+        </TextRegular>
+      </View>
+    )
+  }
+
+  const renderPerformanceEmptyList = () => {
+    return (
+      <TextRegular textStyle={styles.emptyPerformanceList}>
+        ¡No hay actuaciones en fechas próximas!
+      </TextRegular>
     )
   }
 
@@ -245,5 +292,18 @@ const styles = StyleSheet.create({
     bottom: 5,
     position: 'absolute',
     width: '90%'
+  },
+  containerPerformance: {
+    padding: 20,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: 10
+  },
+  emptyPerformanceList: {
+    textAlign: 'center',
+    fontSize: 15,
+    padding: 20,
+    color: 'white'
   }
 })
