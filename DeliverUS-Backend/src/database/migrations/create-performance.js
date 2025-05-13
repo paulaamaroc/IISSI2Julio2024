@@ -2,12 +2,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Performances', {
-    // TO-DO: You must insert the following fields in Performances table:
-    // id (PK integer)
-    // group (string)
-    // appointment (date)
-    // restaurantId (FK integer referencing 'id' in Restaurants table)
-    // SOLUCION
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -33,7 +27,6 @@ module.exports = {
         },
         onDelete: 'cascade'
       },
-      // SOLUCION
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -46,6 +39,7 @@ module.exports = {
       }
     })
   },
+
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Performances')
   }
